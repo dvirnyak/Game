@@ -20,6 +20,7 @@ public:
 
 private:
     inline static Ship* player_;
+    inline static Map* map_;
     inline static Coordinates center_;
     bool isRunning_ = false;
 };

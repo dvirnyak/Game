@@ -7,6 +7,7 @@ Game::Game() {
 Game::~Game() {
     Clean();
     delete Interface_;
+    delete map_;
     std::cout << "bye!\n";
 }
 
@@ -20,38 +21,49 @@ void Game::Init(const char* title, int width, int height, bool fullscreen, int F
         std::cout << "not initialized\n";
         isRunning_ = false;
     }
-    player_ = new Ship(Coordinates(100, 100.001), 0, Vector2D(0, 0));
-    new Ship(Coordinates(90, -50), -400, Vector2D(0,0));
-    new Ship(Coordinates(50, -10), 60, Vector2D(Coordinates(50, 0)));
-    new Ship(Coordinates(0, 0), 0, Vector2D(0,0));
-    new Ship(Coordinates(10, 50), 0, Vector2D(0, 0));
+    map_ = new Map(Sizes(width * 2, height * 2), center_ * 2);
+    //new Island(Coordinates(100, 100));
+    player_ = new Ship(Coordinates(0, 0.001), 360, Vector2D(0, 0));
+    //new Ship(Coordinates(10, 1), -400, Vector2D(0,0) * 0.01);
+    //new Ship(Coordinates(500, -10), 60, Vector2D(Coordinates(0, 0)));
+    //new Ship(Coordinates(0, 500), 0, Vector2D(0, 0));
+
 }
 
 void Game::HandleEvents() {
-    //not ready yet
     Event event = Interface_->HandleEvents();
+    Update();
     if (event.type == "Quit") {
         isRunning_ = false;
-    } else if (event.type == "MouseMove") {
-        //std::cout << event.coordinates.x << " " << event.coordinates.y << "kk\n";
     }
+    if (event.type == "MouseMove") {
+        Vector2D direction(center_ - event.coordinates);
+        player_->SetSailsDirection(direction);
+    }
+
+    if (event.KeyLeftPressed) {
+        player_->ChangeAngle(-1);
+    } else if (event.KeyRightPressed) {
+        player_->ChangeAngle(1);
+    }
+    Update();
 }
 
 void Game::Update() {
+    map_->Update();
     for (auto & object : Object::objects) {
         object->Update();
     }
-    player_->Move(Coordinates(0, 0),0.5);
-    for (auto & ship : Ship::ships) {
-        //ship->Move(1, 0.5);
-    }
+    player_->Update();
 }
 
 void Game::Render() {
     Interface_->ClearScreen();
     //without '* 1' it doesn't work...
     Image::SetViewPoint(player_->GetCoordinates() * 1, center_, player_->GetAngle());
-    //Image::SetZoom(0.7);
+    Image::SetZoom(0.7);
+
+    map_->Draw();
     for (auto & object : Object::objects) {
         object->GetImage()->Draw();
     }

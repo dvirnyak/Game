@@ -3,10 +3,10 @@
 
 #include <ShipObject.h>
 
-class Sails : protected ShipObject {
+class Sails : public ShipObject {
 public:
-    Sails(Object* ship, Coordinates offset);
-    Vector2D GetForce(Coordinates);
+    Sails(Object* ship, const Coordinates& offset);
+    Vector2D GetForce();
     void Update() override;
 };
 

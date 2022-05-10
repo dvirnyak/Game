@@ -45,3 +45,7 @@ void Coordinates::SetPoint(double new_x, double new_y) {
     x = new_x;
     y = new_y;
 }
+
+std::ostream& operator << (std::ostream& out, const Coordinates& coordinates) {
+    out << coordinates.x << " " << coordinates.y;
+}

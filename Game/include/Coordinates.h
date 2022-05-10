@@ -1,6 +1,8 @@
 #ifndef MYCOOLGAME_COORDINATES_H
 #define MYCOOLGAME_COORDINATES_H
 
+#include <iostream>
+
 struct Coordinates {
     double x = 0;
     double y = 0;
@@ -18,5 +20,6 @@ struct Coordinates {
     void SetPoint(double new_x, double new_y);
 };
 
+std::ostream& operator << (std::ostream& out, const Coordinates& coordinates);
 
 #endif //MYCOOLGAME_COORDINATES_H

@@ -8,6 +8,7 @@ public:
     ShipObject(string type, Object* ship, Coordinates offset);
     void FollowShip();
     virtual void Update();
+    void SetDirection(Vector2D direction);
 protected:
     Object* ship_;
     double angleOffset_;

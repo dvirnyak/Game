@@ -1,8 +1,10 @@
 #include <Event.h>
 #include <iostream>
 
-Event::Event(string type, Coordinates coordinates) :
-type(type), coordinates(coordinates) {
+Event::Event(string type, Coordinates coordinates,
+             bool KeyLeftPressed, bool KeyRightPressed) :
+type(type), coordinates(coordinates),
+KeyLeftPressed(KeyLeftPressed), KeyRightPressed(KeyRightPressed) {
 }
 
 Event::~Event() {

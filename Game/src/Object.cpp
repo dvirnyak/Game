@@ -42,7 +42,12 @@ void Object::MoveTo(Coordinates vec, double angle) {
 }
 
 void Object::Update() {
+    Coordinates before = coordinates_;
     Move();
+    if (!Map::inMap(coordinates_)) {
+        speed_ *= -1;
+        coordinates_ = before;
+    }
     image_->Update(coordinates_, sizes_, angle_);
 }
 
@@ -71,10 +76,12 @@ Object::operator Coordinates() {
 
 map<string, string> Object::typeImageSources_ = {
         {"Ship", "ship2.bmp"},
-        {"Sails", "sails.bmp"}
+        {"Sails", "sails.bmp"},
+        {"Island", "island.bmp"}
 };
 
 map<string, Sizes> Object::typeDefaultSizes_ = {
         {"Ship", Sizes(414, 178) * 0.5},
-        {"Sails", Sizes(58, 249) * 0.6}
+        {"Sails", Sizes(58, 249) * 0.6},
+        {"Island", Sizes(300, 300)}
 };

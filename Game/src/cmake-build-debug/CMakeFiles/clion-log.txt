@@ -1,0 +1,31 @@
+/snap/clion/189/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/189/bin/ninja/linux/ninja -G Ninja -S /home/artem/MIPT/TP/Game/src -B /home/artem/MIPT/TP/Game/src/cmake-build-debug
+CMake Deprecation Warning at CMakeLists.txt:3 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+    Reason given by package: The command
+      "/usr/bin/pkg-config" --version
+    failed with output:
+
+    stderr: 
+      
+    result: 
+No such file or directory
+
+CMake Deprecation Warning at SDL_Classes/CMakeLists.txt:3 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/artem/MIPT/TP/Game/src/cmake-build-debug

@@ -13,6 +13,8 @@ struct Image {
     ~Image();
     void Update(Coordinates coordinates, Sizes sizes, double angle = 0);
     void Draw();
+    void SetColor(int x, int y, int r, int g, int b, int a);
+
     static void SetViewPoint(const Coordinates viewPoint, const double angle = 0);
     static void SetViewPoint(const Coordinates playerCoordinates, const Coordinates center,
                              const double angle = 0);
@@ -28,6 +30,8 @@ private:
     inline static double zoom_ = 1;
     inline static Coordinates viewPoint_ = Coordinates();
     inline static double viewAngle_;
+
+
 };
 
 #endif //MYCOOLGAME_IMAGE_H

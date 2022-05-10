@@ -18,7 +18,7 @@ bool SDL_Interface::Init(const char* title, int width, int height, bool fullscre
     }
 
     frameDelay_ = 1000 / FPS;
-    if (SDL_Init(SDL_INIT_EVENTS) == 0) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         std::cout << "it has been initialized\n";
 
         window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -43,25 +43,43 @@ bool SDL_Interface::Init(const char* title, int width, int height, bool fullscre
     }
     return isInitialized;
 }
-
+Coordinates lastMouseLocation(0, 0);
 Event SDL_Interface::HandleEvents() {
-    frameStart_ = SDL_GetTicks();
+    //frameStart_ = SDL_GetTicks();
 
     SDL_Event eventSDL;
     SDL_PollEvent(&eventSDL);
 
     Event eventInterface;
+
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    Coordinates mouse(x, y);
+
+    bool left = false, right = false;
+    const Uint8 *state = SDL_GetKeyboardState(NULL);
+    if (state[SDL_SCANCODE_LEFT]) {
+        left = true;
+    }
+    if (state[SDL_SCANCODE_RIGHT]) {
+        right = true;
+    }
+
     switch (eventSDL.type) {
         case SDL_QUIT:
             eventInterface = Event("Quit");
             break;
         case SDL_MOUSEMOTION:
+            mouse = Coordinates(eventSDL.motion.y, eventSDL.motion.x);
             eventInterface = Event("MouseMove",
-                                   Coordinates(eventSDL.motion.x, eventSDL.motion.y));
+                                           mouse, left, right);
             break;
         default:
+            eventInterface = Event("default", Coordinates(0,0),
+                                   left, right);
             break;
     }
+
     return eventInterface;
 }
 
@@ -70,12 +88,15 @@ void SDL_Interface::ClearScreen() {
 }
 
 void SDL_Interface::PresentScreen() {
-    SDL_RenderPresent(renderer);
-
     //speed booster
     uint32_t frameTime = SDL_GetTicks() - frameStart_;
     if (frameDelay_ > frameTime) {
-        SDL_Delay(frameDelay_ - frameTime);
+        if (frameDelay_ > frameTime * 1.0001) {
+            SDL_Delay(frameDelay_ - frameTime);
+        }
+    } else {
+        frameStart_ = SDL_GetTicks();
+        SDL_RenderPresent(renderer);
     }
 }
 
@@ -99,3 +120,7 @@ void SDL_Interface::DeleteImage(Image* img) {
     auto it = ImageToGameObject.find(img);
     ImageToGameObject.erase(it);
 };
+
+void SDL_Interface::PutPixel(Image *img, int x, int y, int r, int g, int b, int a) {
+    ImageToGameObject[img]->SetPixel(x, y, r, g, b, a);
+}

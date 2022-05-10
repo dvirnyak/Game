@@ -17,6 +17,8 @@ using std::map;
 #include <Image.h>
 #include <Object.h>
 #include <Ship.h>
+#include <Island.h>
+#include <Map.h>
 
 #include <Event.h>
 

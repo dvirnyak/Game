@@ -5,6 +5,10 @@ GameObject::GameObject(Image* img) : img_(img) {
     objTexture = TextureManager::LoadTexture(img->source.c_str());
 }
 
+GameObject::GameObject() {
+
+}
+
 GameObject::~GameObject() {
     SDL_DestroyTexture(objTexture);
 }
@@ -26,3 +30,9 @@ void GameObject::Render() {
 
     SDL_RenderCopyEx(SDL_Interface::renderer, objTexture, NULL, &destRect, img_->angle, &center, flip);
 }
+
+void GameObject::SetPixel(int x, int y, int r, int g, int b, int a) {
+    std::vector< unsigned char > pixels( img_->sizes.width * img_->sizes.height * 4, 0 );
+
+}
+

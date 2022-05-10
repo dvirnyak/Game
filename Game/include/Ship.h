@@ -14,12 +14,14 @@ public:
     Ship(const Coordinates& coordinates, double angle = 0, Vector2D speed = Vector2D(0,0));
     ~Ship();
     void Update() override;
+    void SetSailsDirection(Vector2D direction);
+    void ChangeAngle(double angle_diff);
 
     inline static vector<Ship*> ships;
 
 private:
     int hp_ = 100;
-    ShipObject* sails_;
+    Sails* sails_;
     /*
      * equipment
      * gun

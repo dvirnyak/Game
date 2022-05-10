@@ -31,14 +31,9 @@ void Image::Draw() {
 
     Coordinates originalCenter = center;
     center *= zoom_;
-    //std::cout << center.x << " " << center.y << "\n";
-
-    //double originalAngle = angle;
-    //angle -= viewAngle_;
 
     Game::Interface_->RenderImage(this);
 
-    //angle = originalAngle;
     center = originalCenter;
     coordinates = originalCoordinates;
     sizes = originalSizes;
@@ -61,4 +56,8 @@ void Image::Zoom(double k) {
 
 void Image::SetZoom(double k) {
     zoom_ = k;
+}
+
+void Image::SetColor(int x, int y, int r, int g, int b, int a) {
+    Game::Interface_->PutPixel(this, x, y, r, g, b, a);
 }
