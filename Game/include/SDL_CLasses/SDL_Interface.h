@@ -17,7 +17,7 @@ public:
     void LoadImage(Image* img) override;
     void RenderImage(Image* img) override;
     void DeleteImage(Image* img) override;
-    void PutPixel(Image* image, int x, int y, int r, int g, int b, int a) override;
+    void PutPixel(int x, int y, int r, int g, int b, int a) override;
     static SDL_Renderer* renderer;
 private:
     SDL_Window* window;

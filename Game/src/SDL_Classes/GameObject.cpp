@@ -30,9 +30,3 @@ void GameObject::Render() {
 
     SDL_RenderCopyEx(SDL_Interface::renderer, objTexture, NULL, &destRect, img_->angle, &center, flip);
 }
-
-void GameObject::SetPixel(int x, int y, int r, int g, int b, int a) {
-    std::vector< unsigned char > pixels( img_->sizes.width * img_->sizes.height * 4, 0 );
-
-}
-

@@ -17,7 +17,7 @@ public:
     virtual void LoadImage(Image* img) = 0;
     virtual void RenderImage(Image* img) = 0;
     virtual void DeleteImage(Image* img) = 0;
-    virtual void PutPixel(Image* image, int x, int y, int r, int g, int b, int a) = 0;
+    virtual void PutPixel(int x, int y, int r, int g, int b, int a) = 0;
 };
 
 #endif //MYCOOLGAME_INTERFACE_H

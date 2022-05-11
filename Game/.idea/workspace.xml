@@ -149,7 +149,7 @@
       <workItem from="1651786951021" duration="1156000" />
       <workItem from="1651868628039" duration="3781000" />
       <workItem from="1651877430007" duration="7412000" />
-      <workItem from="1651939478292" duration="45865000" />
+      <workItem from="1651939478292" duration="59681000" />
     </task>
     <servers />
   </component>
@@ -157,9 +157,20 @@
     <option name="version" value="3" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Map.cpp</url>
+          <line>81</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="map_" language="ObjectiveC" />
+        <watch expression="center_" language="ObjectiveC" />
+        <watch expression="speed_" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>

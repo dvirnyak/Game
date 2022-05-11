@@ -21,11 +21,11 @@ void ShipObject::Update() {
 
 void ShipObject::SetDirection(Vector2D direction) {
     angleOffset_ = Vector2D::normaliseAngle(direction.GetAngle() - ship_->GetAngle());
-    if (angleOffset_ > 30) {
+    if (angleOffset_ > 40) {
         if (angleOffset_ < 180) {
-            angleOffset_ = 30;
-        } else if (angleOffset_ < 330) {
-            angleOffset_ = 330;
+            angleOffset_ = 40;
+        } else if (angleOffset_ < 320) {
+            angleOffset_ = 320;
         }
     }
 }

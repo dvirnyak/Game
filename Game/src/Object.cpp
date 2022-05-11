@@ -77,11 +77,13 @@ Object::operator Coordinates() {
 map<string, string> Object::typeImageSources_ = {
         {"Ship", "ship2.bmp"},
         {"Sails", "sails.bmp"},
-        {"Island", "island.bmp"}
+        {"Island", "island1.bmp"},
+        {"Arrow", "arrow.bmp"}
 };
 
 map<string, Sizes> Object::typeDefaultSizes_ = {
         {"Ship", Sizes(414, 178) * 0.5},
         {"Sails", Sizes(58, 249) * 0.6},
-        {"Island", Sizes(300, 300)}
+        {"Island", Sizes(300, 300) * 1.5},
+        {"Arrow", Sizes(25, 70)}
 };

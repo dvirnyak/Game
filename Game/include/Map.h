@@ -24,7 +24,8 @@ public:
     static bool inMap(Coordinates coordinates);
 
 private:
-    inline static Image* image_;
+    inline static int block_size = 500;
+    Image* img_;
     inline static Coordinates center_;
     inline static Sizes sizes_;
     inline static deque<deque<Cell*>> map_;

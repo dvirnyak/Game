@@ -5,7 +5,7 @@
 
 class Island : Object {
 public:
-    Island(Coordinates coordinates);
+    Island(Coordinates coordinates, double angle = 0);
 };
 
 #endif //MYCOOLGAME_ISLAND_H

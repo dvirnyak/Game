@@ -10,6 +10,10 @@ Image::Image(string source, Coordinates coordinates,
     center = centerIm;
 }
 
+Image::Image(Coordinates coordinates, Sizes sizes) :
+coordinates(coordinates), sizes(sizes) {
+}
+
 Image::~Image() {
     Game::Interface_->DeleteImage(this);
 }
@@ -21,6 +25,10 @@ void Image::Update(Coordinates newCoordinates, Sizes newSizes, double newAngle) 
 }
 
 void Image::Draw() {
+    if (fixed_) {
+        Game::Interface_->RenderImage(this);
+        return;
+    }
     //for not copying of the picture by creating a new Image object
     Sizes originalSizes = sizes;
     sizes *= zoom_;
@@ -59,5 +67,9 @@ void Image::SetZoom(double k) {
 }
 
 void Image::SetColor(int x, int y, int r, int g, int b, int a) {
-    Game::Interface_->PutPixel(this, x, y, r, g, b, a);
+    Game::Interface_->PutPixel(coordinates.x + x, coordinates.y + y, r, g, b, a);
+}
+
+void Image::FixPosition() {
+    fixed_ = true;
 }

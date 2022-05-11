@@ -13,7 +13,7 @@ Vector2D Sails::GetForce() {
     double absolute = wind.GetAbs() * cos(diff_angle * 3.1415 / 180);
 
     if (absolute < 0) {
-        absolute *= 0.05;
+        absolute *= 0.1;
     }
     return Vector2D(ship_->GetAngle(), absolute, true);
 }

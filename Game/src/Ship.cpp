@@ -26,7 +26,7 @@ Ship::~Ship() {
 }
 
 void Ship::Update() {
-    double m = 0.01;
+    double m = 3;
     speed_ = sails_->GetForce() * (1 / m);
     //speed_ = Vector2D(0, -1) * 10;
     Coordinates before = coordinates_;

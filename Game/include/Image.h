@@ -10,9 +10,13 @@ using std::string;
 struct Image {
     Image(string source, Coordinates coordinates, Sizes sizes,
           double angle = 0, Coordinates center = Coordinates(0,0));
+
+    Image(Coordinates coordinates, Sizes sizes);
+
     ~Image();
     void Update(Coordinates coordinates, Sizes sizes, double angle = 0);
     void Draw();
+    void FixPosition();
     void SetColor(int x, int y, int r, int g, int b, int a);
 
     static void SetViewPoint(const Coordinates viewPoint, const double angle = 0);
@@ -27,11 +31,10 @@ struct Image {
     double angle;
     inline static Coordinates center;
 private:
+    bool fixed_ = false;
     inline static double zoom_ = 1;
     inline static Coordinates viewPoint_ = Coordinates();
     inline static double viewAngle_;
-
-
 };
 
 #endif //MYCOOLGAME_IMAGE_H

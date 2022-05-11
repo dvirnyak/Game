@@ -41,6 +41,10 @@ bool SDL_Interface::Init(const char* title, int width, int height, bool fullscre
         std::cout << "Error : " << SDL_GetError() << std::endl;
         isInitialized = false;
     }
+
+    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(SDL_Interface::renderer, 122, 163, 248, 0.8);
+
     return isInitialized;
 }
 Coordinates lastMouseLocation(0, 0);
@@ -91,7 +95,7 @@ void SDL_Interface::PresentScreen() {
     //speed booster
     uint32_t frameTime = SDL_GetTicks() - frameStart_;
     if (frameDelay_ > frameTime) {
-        if (frameDelay_ > frameTime * 1.0001) {
+        if (frameDelay_ > frameTime * 1.01) {
             SDL_Delay(frameDelay_ - frameTime);
         }
     } else {
@@ -121,6 +125,9 @@ void SDL_Interface::DeleteImage(Image* img) {
     ImageToGameObject.erase(it);
 };
 
-void SDL_Interface::PutPixel(Image *img, int x, int y, int r, int g, int b, int a) {
-    ImageToGameObject[img]->SetPixel(x, y, r, g, b, a);
+void SDL_Interface::PutPixel(int x, int y, int r, int g, int b, int a) {
+    std::cout << Coordinates(x, y) << "\n";
+    SDL_SetRenderDrawColor(SDL_Interface::renderer, r, g, b, a);
+    SDL_RenderDrawPoint(SDL_Interface::renderer, x, y);
+    SDL_SetRenderDrawColor(SDL_Interface::renderer, 39, 106, 245, 255);
 }

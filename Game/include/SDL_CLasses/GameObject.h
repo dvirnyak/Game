@@ -10,7 +10,6 @@ public:
     GameObject();
     ~GameObject();
     void Render();
-    void SetPixel(int x, int y, int r, int g, int b, int a);
 private:
     Image* img_;
 
