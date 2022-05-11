@@ -17,8 +17,6 @@ public:
     void SetSailsDirection(Vector2D direction);
     void ChangeAngle(double angle_diff);
 
-    inline static vector<Ship*> ships;
-
 private:
     int hp_ = 100;
     Sails* sails_;

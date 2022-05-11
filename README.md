@@ -2,8 +2,18 @@
 
 Абстрактный класс Interface - Bridge между графикой/сетевыми запросами и остальным кодом
 
-Используется SDL2 b SDL2_image
+Используется SDL2
 
-Всё собирается и запускается, но там пока просто корабли с заданными положениями и скоростями.
+Сборка и запуск:
+1. Установка SDL2 - https://wiki.libsdl.org/Installation
 
-Реализована основная часть классов для кораблей и интерфейса
+Для Linux:
+git clone https://github.com/libsdl-org/SDL
+cd SDL
+mkdir build
+cd build
+../configure
+make
+sudo make install
+
+2. Установка самой игры - стандартная, через CMake

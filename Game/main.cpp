@@ -10,5 +10,6 @@ int main(int argc, char **argv) {
         game->Render();
     }
     game->Clean();
+    delete game;
     return 0;
 }

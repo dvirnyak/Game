@@ -85,7 +85,6 @@ void Game::Clean() {
     Object::Clean();
     Interface_->Clean();
     std::cout << "it's cleaned\n";
-    std::cout << Ship::ships.size() << "\n";
 }
 
 bool Game::Running() {

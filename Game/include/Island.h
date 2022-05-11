@@ -6,6 +6,7 @@
 class Island : Object {
 public:
     Island(Coordinates coordinates, double angle = 0);
+    ~Island() = default;
 };
 
 #endif //MYCOOLGAME_ISLAND_H

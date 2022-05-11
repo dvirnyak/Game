@@ -5,7 +5,6 @@
 Map::Map(Sizes sizes, Coordinates center) {
     sizes_ = sizes;
     center_ = center;
-    img_ = new Image(center, sizes);
     map_ = deque<deque<Cell*>>(deque<deque<Cell*>>(
             sizes.width / block_size + 1, deque<Cell*>(sizes.height / block_size + 1)));
 
@@ -24,12 +23,11 @@ Map::Map(Sizes sizes, Coordinates center) {
 }
 
 Map::~Map() {
-    for (int i = 0; i < sizes_.width; ++i) {
-        for (int j = 0; j < sizes_.height; ++j) {
+    for (int i = 0; i < sizes_.width / block_size + 1; ++i) {
+        for (int j = 0; j < sizes_.height / block_size + 1; ++j) {
             delete map_[i][j];
         }
     }
-    delete img_;
 }
 
 void Map::Draw() {
@@ -41,7 +39,6 @@ void Map::Update() {
         return;
     }
     update_count_ = 0;
-    double angle = 45, abs = 0.05;
 
     for (int i = 1; i < sizes_.width / block_size - 1; ++i) {
         for (int j = 1; j < sizes_.height / block_size - 1; ++j) {
@@ -64,8 +61,6 @@ void Map::Update() {
             map_[i][j]->wind = wind;
         }
     }
-
-    //map_[i][j]->wind = Vector2D(angle, abs, true);
 
 }
 

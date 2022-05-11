@@ -9,6 +9,7 @@
 using std::deque;
 
 struct Cell {
+    ~Cell() = default;
     Vector2D wind;
     double pressure = 0;
     double height = 0;

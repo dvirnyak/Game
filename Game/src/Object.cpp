@@ -11,7 +11,7 @@ type_(type), coordinates_(coordinates), angle_(angle), speed_(speed) {
 };
 
 Object::~Object() {
-    std::cout << "delete\n";
+    std::cout << type_ << "\n";
     auto itr = objects.begin();
     while (itr != objects.end() && objects.size() > 0) {
         if ((*itr) == this) {
@@ -66,7 +66,7 @@ double Object::GetAngle() {
 void Object::Clean() {
     auto itr = objects.begin();
     while (itr != objects.end() && objects.size() > 0) {
-        itr = objects.erase(itr);
+        delete *itr;
     }
 }
 

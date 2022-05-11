@@ -22,3 +22,5 @@ void Sails::Update() {
     FollowShip();
     //std::cout << GetCoordinates().x << " " << GetCoordinates().y << "\n";
 }
+
+

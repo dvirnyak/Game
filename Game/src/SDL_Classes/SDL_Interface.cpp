@@ -107,6 +107,9 @@ void SDL_Interface::PresentScreen() {
 void SDL_Interface::Clean() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    for (auto itr = ImageToGameObject.begin(); itr != ImageToGameObject.end(); ++itr) {
+        delete itr->second;
+    }
     SDL_Quit();
     std::cout << "it's cleaned\n";
 }
