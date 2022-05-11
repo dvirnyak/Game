@@ -1,6 +1,0 @@
-/home/artem/MIPT/TP/Game/src/cmake-build-debug/CMakeFiles/MyLib.dir
-/home/artem/MIPT/TP/Game/src/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/artem/MIPT/TP/Game/src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/artem/MIPT/TP/Game/src/cmake-build-debug/SDL_Classes/CMakeFiles/SDL_Classes.dir
-/home/artem/MIPT/TP/Game/src/cmake-build-debug/SDL_Classes/CMakeFiles/edit_cache.dir
-/home/artem/MIPT/TP/Game/src/cmake-build-debug/SDL_Classes/CMakeFiles/rebuild_cache.dir
