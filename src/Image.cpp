@@ -2,12 +2,10 @@
 #include <Game.h>
 
 Image::Image(string source, Coordinates coordinates,
-             Sizes sizes, double angle,
-             Coordinates centerIm) : source(source),
+             Sizes sizes, double angle) : source(source),
                                        coordinates(coordinates),
                                        sizes(sizes), angle(angle) {
     Game::Interface_->LoadImage(this);
-    center = centerIm;
 }
 
 Image::Image(Coordinates coordinates, Sizes sizes) :

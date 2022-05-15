@@ -20,13 +20,11 @@ void GameObject::Render() {
     destRect.x = img_->coordinates.x;
     destRect.y = img_->coordinates.y;
 
-    SDL_Point center = {img_->sizes.width / 2, img_->sizes.height / 2};//{static_cast<int>(img_->center.x),
-                        //static_cast<int>(img_->center.y)};
-    // the center where the texture will be rotated.
+    SDL_Point center = {img_->sizes.width / 2, img_->sizes.height / 2};
     SDL_RendererFlip flip = SDL_FLIP_NONE;
 
     //SDL_RenderSetViewport(SDL_Interface::renderer, &viewRect);
     //cropRect = {x, y, h, w}; - in case of needed croping
 
-    SDL_RenderCopyEx(SDL_Interface::renderer, objTexture, NULL, &destRect, img_->angle, &center, flip);
+    SDL_RenderCopyEx(SDL_Interface::renderer, objTexture, NULL, &destRect, img_->angle + 90, &center, flip);
 }

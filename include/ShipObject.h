@@ -5,7 +5,7 @@
 
 class ShipObject : public Object {
 public:
-    ShipObject(string type, Object* ship, Coordinates offset);
+    ShipObject(string type, Object* ship, Coordinates offset, double angle = 0);
     void FollowShip();
     virtual void Update();
     void SetDirection(Vector2D direction);

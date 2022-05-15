@@ -10,10 +10,10 @@ public:
     Vector2D(double angle, double abs, bool flag);
     Vector2D(double x, double y);
     Vector2D(Coordinates coordinates, double angle);
-    void Rotate(double angle);
+    Vector2D& Rotate(double angle);
     double GetAngle();
     double GetAbs();
-    static float normaliseAngle(double angle);
+    static double normaliseAngle(double angle);
 };
 
 #endif //MYCOOLGAME_VECTOR2D_H

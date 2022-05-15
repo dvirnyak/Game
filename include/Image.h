@@ -9,7 +9,7 @@ using std::string;
 
 struct Image {
     Image(string source, Coordinates coordinates, Sizes sizes,
-          double angle = 0, Coordinates center = Coordinates(0,0));
+          double angle = 0);
 
     Image(Coordinates coordinates, Sizes sizes);
 

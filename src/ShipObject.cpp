@@ -1,11 +1,11 @@
 #include "ShipObject.h"
 
-ShipObject::ShipObject(string type, Object* ship, Coordinates offset) :
+ShipObject::ShipObject(string type, Object* ship, Coordinates offset, double angle) :
         Object(type, ship->GetCoordinates() + offset,
-               ship->GetAngle()),
+               ship->GetAngle() + angle),
         ship_(ship),
         coordinatesOffset_(offset),
-        angleOffset_(0) {
+        angleOffset_(angle) {
 }
 
 void ShipObject::FollowShip() {
@@ -21,11 +21,9 @@ void ShipObject::Update() {
 
 void ShipObject::SetDirection(Vector2D direction) {
     angleOffset_ = Vector2D::normaliseAngle(direction.GetAngle() - ship_->GetAngle());
-    if (angleOffset_ > 40) {
-        if (angleOffset_ < 180) {
-            angleOffset_ = 40;
-        } else if (angleOffset_ < 320) {
-            angleOffset_ = 320;
-        }
+    if (angleOffset_ < -40) {
+        angleOffset_ = -40;
+    } else if (angleOffset_ > 40) {
+        angleOffset_ = 40;
     }
 }

@@ -8,7 +8,7 @@ set (CMAKE_CXX_STANDARD 17)
 INCLUDE(FindPkgConfig)
 
 add_subdirectory(SDL_Classes)
-add_library(MyLib SHARED SDL_Classes Game.cpp Coordinates.cpp Sizes.cpp Image.cpp Object.cpp Event.cpp Ship.cpp Vector2D.cpp Sails.cpp ShipObject.cpp Map.cpp Island.cpp)
+add_library(MyLib SHARED SDL_Classes Game.cpp Coordinates.cpp Sizes.cpp Image.cpp Object.cpp Event.cpp Ship.cpp Vector2D.cpp Sails.cpp ShipObject.cpp Map.cpp Island.cpp Cannon.cpp CannonBall.cpp)
 
 #include_directories(../assets)
 #target_link_libraries(${PROJECT_NAME} PRIVATE MyAssets)

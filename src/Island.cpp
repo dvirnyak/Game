@@ -3,3 +3,7 @@
 Island::Island(Coordinates coordinates, double angle) : Object("Island", coordinates, angle) {
 
 }
+
+void Island::Update() {
+
+}

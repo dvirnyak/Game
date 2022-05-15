@@ -8,7 +8,6 @@ public:
     Sails(Object* ship, const Coordinates& offset);
     ~Sails() = default;
     Vector2D GetForce();
-    void Update() override;
 };
 
 #endif //MYCOOLGAME_SAILS_H

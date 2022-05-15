@@ -7,6 +7,7 @@
 
 #include <Object.h>
 #include <Sails.h>
+#include <Cannon.h>
 #include <ShipObject.h>
 
 class Ship : public Object {
@@ -16,10 +17,13 @@ public:
     void Update() override;
     void SetSailsDirection(Vector2D direction);
     void ChangeAngle(double angle_diff);
+    void Fire(bool left = true);
 
 private:
     int hp_ = 100;
     Sails* sails_;
+    Cannon* left_cannon_;
+    Cannon* right_cannon_;
     /*
      * equipment
      * gun

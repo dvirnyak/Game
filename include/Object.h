@@ -13,8 +13,7 @@ using std::vector;
 class Object {
 public:
     Object(string type, const Coordinates& coordinates,
-           double angle = 0, Vector2D speed = Vector2D(0,0),
-           Coordinates center = Coordinates(0,0));
+           double angle = 0, Vector2D speed = Vector2D(0,0));
     virtual ~Object();
 
     void Move();
@@ -24,15 +23,25 @@ public:
     Image* GetImage();
     Coordinates GetCoordinates() const;
     double GetAngle();
-    static void Clean();
+    Vector2D GetSpeed();
+    void Resize(Sizes new_sizes);
 
-    operator Coordinates();
+    static void Clean();
+    static void DeleteKilled();
+    static void CheckCollisions();
 
     inline static vector<Object*> objects;
+
+    operator Coordinates();
 
 private:
     Object() = default;
     string type_;
+
+    static bool Collised(Object* a, Object* b);
+    inline static time_t interval_collisions = 1;
+    inline static time_t last_call_collisions;
+
     //all the sources and sizes of types should be in a one place
     inline static string dirAssets = "../assets/";
     static map<string, string> typeImageSources_;
@@ -44,6 +53,7 @@ protected:
     Vector2D speed_;
     Image* image_;
     double angle_;
+    bool kill_me_ = false;
 };
 
 #endif //MYCOOLGAME_OBJECT_H

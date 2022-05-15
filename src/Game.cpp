@@ -21,20 +21,42 @@ void Game::Init(const char* title, int width, int height, bool fullscreen, int F
         std::cout << "not initialized\n";
         isRunning_ = false;
     }
-    map_ = new Map(Sizes(width * 10, height * 10), center_ * 10);
+    map_ = new Map(Sizes(width * 100, height * 100), center_ * 100);
 
+    int rand_int = rand() % 10000;
+    for (int i = 0; i < 2000; ++i) {
+        rand_int *= 123456789;
+        rand_int %= 1000000;
 
-    new Island(Coordinates(100, 100), 234);
-    new Island(Coordinates(300, 150), 32);
-    new Island(Coordinates(50, 50), 984);
-    new Island(Coordinates(-50, -70), 94);
+        bool rand_bool = rand_int % 2;
+        double x, y, angle;
+        x = rand_int % 1000000; x /= 123;
+        y = (rand_int * 200 + 123456) % 2000000; y /= 234;
+        Coordinates coordinates = Coordinates(x, y) *= (rand_bool) ? -1 : 1;
+        angle = Vector2D::normaliseAngle(rand() % 7600 / 42);
 
-    new Ship(Coordinates(10, 1), -400, Vector2D(0,0) * 0.01);
-    new Ship(Coordinates(500, -10), 60, Vector2D(Coordinates(0, 0)));
-    new Ship(Coordinates(0, 500), 0, Vector2D(0, 0));
+        int h, w;
+        h = rand_int % 200 + 400;
+        w = h;
+        Island* island = new Island(Coordinates(x, y), angle);
+        island->Resize(Sizes(h, w));
+    }
 
-    player_ = new Ship(Coordinates(0, 0.001), 360, Vector2D(0, 0));
-    arrow_ = new Object("Arrow", Coordinates(width / 2, height * 0.1));
+    for (int i = 0; i < 500; ++i) {
+        rand_int += 123456789;
+        rand_int %= 1000000;
+
+        bool rand_bool = rand_int % 2;
+        double x, y, angle;
+        x = rand_int % 1000000; x /= 123;
+        y = (rand_int * 200 + 123456) % 2000000; y /= 234;
+        Coordinates coordinates = Coordinates(x, y) *= (rand_bool) ? -1 : 1;
+        angle = Vector2D::normaliseAngle(rand() % 7600 / 42);
+        new Ship(Coordinates(x, y), angle);
+    }
+
+    player_ = new Ship(Coordinates(100, 100), -90, Vector2D(0, 0));
+    arrow_ = new Object("Arrow", Coordinates(width / 2, height * 0.1), -90);
     arrow_->GetImage()->FixPosition();
 }
 
@@ -45,15 +67,23 @@ void Game::HandleEvents() {
         isRunning_ = false;
     }
     if (event.type == "MouseMove") {
-        Vector2D direction(center_ - event.coordinates);
+        Vector2D direction(event.coordinates - center_);
         player_->SetSailsDirection(direction);
     }
 
     if (event.KeyLeftPressed) {
         player_->ChangeAngle(-0.1);
-    } else if (event.KeyRightPressed) {
+    }
+    if (event.KeyRightPressed) {
         player_->ChangeAngle(0.1);
     }
+    if (event.FireLeft) {
+        player_->Fire(true);
+    }
+    if (event.FireRight) {
+        player_->Fire(false);
+    }
+
     Update();
 }
 
@@ -65,13 +95,15 @@ void Game::Update() {
         object->Update();
     }
     player_->Update();
+    //Object::CheckCollisions();
+    Object::DeleteKilled();
 }
 
 void Game::Render() {
 
     //without '* 1' it doesn't work...
     Image::SetViewPoint(player_->GetCoordinates() * 1, center_, player_->GetAngle());
-    Image::SetZoom(0.7);
+    Image::SetZoom(0.5);
 
     map_->Draw();
     for (auto & object : Object::objects) {

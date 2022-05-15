@@ -3,10 +3,11 @@
 
 #include <Object.h>
 
-class Island : Object {
+class Island : public Object {
 public:
     Island(Coordinates coordinates, double angle = 0);
     ~Island() = default;
+    void Update() override;
 };
 
 #endif //MYCOOLGAME_ISLAND_H

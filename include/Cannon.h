@@ -5,10 +5,17 @@
 #ifndef MYCOOLGAME_CANNON_H
 #define MYCOOLGAME_CANNON_H
 
-#include <Object.h>
+#include <ShipObject.h>
+#include <CannonBall.h>
+#include <ctime>
 
-class Cannon : public Object {
-    Cannon(Object* ship, Coordinates offset, );
+class Cannon : ShipObject {
+public:
+    Cannon(Object* ship, Coordinates offset, double angle);
+    bool Fire();
+private:
+    time_t interval = 1;
+    time_t last_call;
 };
 
 #endif //MYCOOLGAME_CANNON_H

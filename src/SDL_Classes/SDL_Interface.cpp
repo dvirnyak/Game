@@ -60,7 +60,7 @@ Event SDL_Interface::HandleEvents() {
     SDL_GetMouseState(&x, &y);
     Coordinates mouse(x, y);
 
-    bool left = false, right = false;
+    bool left = false, right = false, FireRight = false, FireLeft = false;
     const Uint8 *state = SDL_GetKeyboardState(NULL);
     if (state[SDL_SCANCODE_LEFT]) {
         left = true;
@@ -68,19 +68,26 @@ Event SDL_Interface::HandleEvents() {
     if (state[SDL_SCANCODE_RIGHT]) {
         right = true;
     }
+    if (state[SDL_SCANCODE_1]) {
+        FireLeft = true;
+    }
+    if (state[SDL_SCANCODE_2]) {
+        FireRight = true;
+    }
 
     switch (eventSDL.type) {
         case SDL_QUIT:
             eventInterface = Event("Quit");
             break;
         case SDL_MOUSEMOTION:
-            mouse = Coordinates(eventSDL.motion.y, eventSDL.motion.x);
+            mouse = Coordinates(eventSDL.motion.x, eventSDL.motion.y);
             eventInterface = Event("MouseMove",
-                                           mouse, left, right);
+                                           mouse, left, right,
+                                           FireRight, FireLeft);
             break;
         default:
             eventInterface = Event("default", Coordinates(0,0),
-                                   left, right);
+                                   left, right, FireRight, FireLeft);
             break;
     }
 
