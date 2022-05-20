@@ -24,7 +24,7 @@ void Game::Init(const char* title, int width, int height, bool fullscreen, int F
     map_ = new Map(Sizes(width * 100, height * 100), center_ * 100);
 
     int rand_int = rand() % 10000;
-    for (int i = 0; i < 2000; ++i) {
+    for (int i = 0; i < 250; ++i) {
         rand_int *= 123456789;
         rand_int %= 1000000;
 
@@ -42,7 +42,7 @@ void Game::Init(const char* title, int width, int height, bool fullscreen, int F
         island->Resize(Sizes(h, w));
     }
 
-    for (int i = 0; i < 500; ++i) {
+    for (int i = 0; i < 50; ++i) {
         rand_int += 123456789;
         rand_int %= 1000000;
 

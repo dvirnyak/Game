@@ -18,7 +18,7 @@ bool SDL_Interface::Init(const char* title, int width, int height, bool fullscre
     }
 
     frameDelay_ = 1000 / FPS;
-    if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
+    if (SDL_Init(SDL_INIT_VIDEO) == 0) {
         std::cout << "it has been initialized\n";
 
         window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -102,7 +102,7 @@ void SDL_Interface::PresentScreen() {
     //speed booster
     uint32_t frameTime = SDL_GetTicks() - frameStart_;
     if (frameDelay_ > frameTime) {
-        if (frameDelay_ > frameTime * 1.01) {
+        if (frameDelay_ > frameTime) {
             SDL_Delay(frameDelay_ - frameTime);
         }
     } else {
