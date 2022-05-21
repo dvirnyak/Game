@@ -18,6 +18,8 @@ public:
     void SetSailsDirection(Vector2D direction);
     void ChangeAngle(double angle_diff);
     void Fire(bool left = true);
+    inline static vector<Ship*> ships;
+    void Boom();
 
 private:
     int hp_ = 100;

@@ -29,6 +29,7 @@ public:
     static void Clean();
     static void DeleteKilled();
     static void CheckCollisions();
+    static bool Collised(Object* a, Object* b);
 
     inline static vector<Object*> objects;
 
@@ -38,7 +39,7 @@ private:
     Object() = default;
     string type_;
 
-    static bool Collised(Object* a, Object* b);
+
     inline static time_t interval_collisions = 1;
     inline static time_t last_call_collisions;
 

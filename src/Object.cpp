@@ -13,7 +13,7 @@ Object::~Object() {
     auto itr = objects.begin();
     while (itr != objects.end() && objects.size() > 0) {
         if ((*itr) == this) {
-            itr = objects.erase(itr);
+            objects.erase(itr);
             break;
         } else {
             ++itr;

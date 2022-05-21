@@ -22,4 +22,12 @@ void CannonBall::Update() {
 
     Resize(sizes_ * 1.01);
     Move();
+
+    for (auto ship : Ship::ships) {
+        if (Object::Collised(ship, this)) {
+            ship->Boom();
+            kill_me_ = true;
+            break;
+        }
+    }
 }

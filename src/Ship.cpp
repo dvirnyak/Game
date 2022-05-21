@@ -7,12 +7,24 @@ Object("Ship", coordinates, 0, speed) {
     right_cannon_ = new Cannon(this, Coordinates(-35, 20), -0);
     sails_ = new Sails(this, Coordinates(10, 0));
     Move(Vector2D(0,0), angle_);
+
+    ships.push_back(this);
 };
 
 Ship::~Ship() {
     delete sails_;
     delete left_cannon_;
     delete right_cannon_;
+
+    auto itr = ships.begin();
+    while (itr != ships.end() && ships.size() > 0) {
+        if ((*itr) == this) {
+            ships.erase(itr);
+            break;
+        } else {
+            ++itr;
+        }
+    }
 }
 
 void Ship::Update() {
@@ -46,4 +58,8 @@ void Ship::Fire(bool left) {
     } else if (!left && right_cannon_->Fire()) {
         speed_ += Vector2D(angle_ - 90, 10, bool());
     }
+}
+
+void Ship::Boom() {
+    hp_ -= 50;
 }
