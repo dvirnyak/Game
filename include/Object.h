@@ -22,7 +22,7 @@ public:
     virtual void Update();
     Image* GetImage();
     Coordinates GetCoordinates() const;
-    double GetAngle();
+    double GetAngle() const;
     Vector2D GetSpeed();
     void Resize(Sizes new_sizes);
 

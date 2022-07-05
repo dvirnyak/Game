@@ -28,8 +28,8 @@ Ship::~Ship() {
 }
 
 void Ship::Update() {
-    double weight = 3000;
-    speed_ *= 0.99;
+    double weight = 15000;
+    speed_ *= 0.995;
     speed_ += sails_->GetForce() * (1 / weight);
     Coordinates before = coordinates_;
     Move();
@@ -50,6 +50,7 @@ void Ship::ChangeAngle(double angle_diff) {
     angle_ += angle_diff;
     angle_ = Vector2D::normaliseAngle(angle_);
     speed_.Rotate(angle_diff);
+    speed_ *= 0.98;
 }
 
 void Ship::Fire(bool left) {

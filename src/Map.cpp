@@ -50,7 +50,7 @@ void Map::Update() {
             map_[i][j]->pressure = map_[i-1][j]->pressure + map_[i+1][j]->pressure +
                     map_[i][j-1]->pressure + map_[i][j+1]->pressure;
             map_[i][j]->pressure *= 0.2;
-            map_[i][j]->pressure += rand() % 1;
+            map_[i][j]->pressure += rand() % 50;
         }
     }
 

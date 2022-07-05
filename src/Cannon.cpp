@@ -1,6 +1,7 @@
 #include "Cannon.h"
 
-Cannon::Cannon(Object *ship, Coordinates offset, double angle) : ShipObject("Cannon", ship, offset, angle) {
+Cannon::Cannon(Object *ship, Coordinates offset, double angle) :
+ShipObject("Cannon", ship, offset, angle), last_call(time(NULL)) {
 }
 
 bool Cannon::Fire() {
@@ -14,6 +15,5 @@ bool Cannon::Fire() {
     speed += ship_->GetSpeed();
     new CannonBall(coordinates_, speed);
 
-    //ship_->Move(Vector2D(speed * -0.01));
     return true;
 }

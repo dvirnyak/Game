@@ -24,7 +24,7 @@ void Game::Init(const char* title, int width, int height, bool fullscreen, int F
     map_ = new Map(Sizes(width * 100, height * 100), center_ * 100);
 
     int rand_int = rand() % 10000;
-    for (int i = 0; i < 25; ++i) {
+    for (int i = 0; i < 200; ++i) {
         rand_int *= 123456789;
         rand_int %= 1000000;
 
@@ -36,20 +36,21 @@ void Game::Init(const char* title, int width, int height, bool fullscreen, int F
         angle = Vector2D::normaliseAngle(rand() % 7600 / 42);
 
         int h, w;
-        h = rand_int % 200 + 400;
+        h = rand_int % 400 + 800;
         w = h;
         Island* island = new Island(Coordinates(x, y), angle);
         island->Resize(Sizes(h, w));
     }
 
-    for (int i = 0; i < 5; ++i) {
+    rand_int = rand() % 10000;
+    for (int i = 0; i < 10; ++i) {
         rand_int += 123456789;
         rand_int %= 1000000;
 
         bool rand_bool = rand_int % 2;
         double x, y, angle;
-        x = rand_int % 100000; x /= 123;
-        y = (rand_int * 200 + 123456) % 200000; y /= 234;
+        x = rand_int % 1000000; x /= 123;
+        y = (rand_int * 200 + 123456) % 2000000; y /= 234;
         Coordinates coordinates = Coordinates(x, y) *= (rand_bool) ? -1 : 1;
         angle = Vector2D::normaliseAngle(rand() % 7600 / 42);
         new Ship(Coordinates(x, y), angle);
@@ -89,13 +90,15 @@ void Game::HandleEvents() {
 
 void Game::Update() {
     map_->Update();
+
     Vector2D wind = Map::GetWind(player_->GetCoordinates());
     arrow_->MoveTo(arrow_->GetCoordinates(), wind.GetAngle() - 90);
+
     for (auto & object : Object::objects) {
         object->Update();
     }
     player_->Update();
-    //Object::CheckCollisions();
+
     Object::DeleteKilled();
 }
 
@@ -109,6 +112,7 @@ void Game::Render() {
     for (auto & object : Object::objects) {
         object->GetImage()->Draw();
     }
+
     Interface_->PresentScreen();
     Interface_->ClearScreen();
 }

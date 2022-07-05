@@ -10,6 +10,8 @@ type_(type), coordinates_(coordinates), angle_(angle), speed_(speed) {
 };
 
 Object::~Object() {
+    delete image_;
+
     auto itr = objects.begin();
     while (itr != objects.end() && objects.size() > 0) {
         if ((*itr) == this) {
@@ -19,7 +21,7 @@ Object::~Object() {
             ++itr;
         }
     }
-    delete image_;
+
 }
 
 void Object::Move() {
@@ -57,7 +59,7 @@ Coordinates Object::GetCoordinates() const {
     return coordinates_;
 };
 
-double Object::GetAngle() {
+double Object::GetAngle() const {
     return angle_;
 };
 

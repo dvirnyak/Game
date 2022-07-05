@@ -6,6 +6,9 @@ height(0) {
     speed_ = speed;
     speed_y = 50000;
     orignal_sizes_ = sizes_;
+
+    using namespace std::chrono;
+    ms_start = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 }
 
 void CannonBall::Update() {
@@ -25,6 +28,11 @@ void CannonBall::Update() {
 
     for (auto ship : Ship::ships) {
         if (Object::Collised(ship, this)) {
+
+            using namespace std::chrono;
+            microseconds ms_now = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+
+
             ship->Boom();
             kill_me_ = true;
             break;

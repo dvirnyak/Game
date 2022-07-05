@@ -1,11 +1,8 @@
-//
-// Created by artem on 13.05.22.
-//
-
 #ifndef MYCOOLGAME_CANNONBALL_H
 #define MYCOOLGAME_CANNONBALL_H
 
 #include <Object.h>
+#include <chrono>
 
 class CannonBall : Object {
 public:
@@ -13,6 +10,7 @@ public:
     void Update() override;
 private:
     inline static const double g = 9.8;
+    std::chrono::milliseconds ms_start;
     double height;
     double speed_y = 0;
     Sizes orignal_sizes_;
