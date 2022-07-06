@@ -13,7 +13,7 @@ bool Cannon::Fire() {
     double abs_speed = 200;
     Vector2D speed = Vector2D(angle_ + 90, abs_speed, true);
     speed += ship_->GetSpeed();
-    new CannonBall(coordinates_, speed);
+    new CannonBall(ship_, coordinates_, speed);
 
     return true;
 }

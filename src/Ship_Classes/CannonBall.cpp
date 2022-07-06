@@ -1,14 +1,11 @@
 #include <CannonBall.h>
 #include <Game.h>
 
-CannonBall::CannonBall(Coordinates start_point, Vector2D speed) : Object("CannonBall", start_point),
-height(0) {
+CannonBall::CannonBall(Object* ship, Coordinates start_point, Vector2D speed) :
+Object("CannonBall", start_point), ship_(ship), height(0) {
     speed_ = speed;
     speed_y = 50000;
     orignal_sizes_ = sizes_;
-
-    using namespace std::chrono;
-    ms_start = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 }
 
 void CannonBall::Update() {
@@ -27,12 +24,7 @@ void CannonBall::Update() {
     Move();
 
     for (auto ship : Ship::ships) {
-        if (Object::Collised(ship, this)) {
-
-            using namespace std::chrono;
-            microseconds ms_now = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
-
-
+        if (Object::Collised(ship, this) && ship != ship_) {
             ship->Boom();
             kill_me_ = true;
             break;
