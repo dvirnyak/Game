@@ -112,7 +112,7 @@ Object::operator Coordinates() {
     return coordinates_;
 }
 
-bool Object::Collised(Object *a, Object *b) {
+bool Object::Collised(Object* a, Object* b) {
     double diff_angle = a->angle_ - b->angle_;
 
     Coordinates coordinates_a = a->coordinates_;

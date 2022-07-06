@@ -2,8 +2,7 @@
 #define MYCOOLGAME_IMAGE_H
 
 #include <string>
-#include <Coordinates.h>
-#include <Sizes.h>
+#include <Geometry.h>
 
 using std::string;
 

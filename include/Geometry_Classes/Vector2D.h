@@ -1,7 +1,7 @@
 #ifndef MYCOOLGAME_VECTOR2D_H
 #define MYCOOLGAME_VECTOR2D_H
 
-#include <Coordinates.h>
+#include "Coordinates.h"
 
 struct Vector2D : public Coordinates {
 public:
