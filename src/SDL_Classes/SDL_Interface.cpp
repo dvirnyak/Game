@@ -9,15 +9,15 @@ SDL_Interface::~SDL_Interface() {
     Clean();
 }
 
-bool SDL_Interface::Init(const char* title, int width, int height, bool fullscreen, int FPS) {
-    bool isInitialized = false;
+bool SDL_Interface::Init(const char* title, int width, int height, bool fullscreen, int fps) {
+    bool is_initialized = false;
 
     int flags = 0;
     if (fullscreen) {
         flags += SDL_WINDOW_FULLSCREEN;
     }
 
-    frameDelay_ = 1000 / FPS;
+    frameDelay_ = 1000 / fps;
     if (SDL_Init(SDL_INIT_VIDEO) == 0) {
         std::cout << "it has been initialized\n";
 
@@ -34,22 +34,21 @@ bool SDL_Interface::Init(const char* title, int width, int height, bool fullscre
             std::cout << "renderer created!\n";
         }
 
-        isInitialized = true;
+        is_initialized = true;
 
     } else {
         std::cout << "smth went wrong:\n";
         std::cout << "Error : " << SDL_GetError() << std::endl;
-        isInitialized = false;
+        is_initialized = false;
     }
 
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(SDL_Interface::renderer, 122, 163, 248, 0.8);
 
-    return isInitialized;
+    return is_initialized;
 }
-Coordinates lastMouseLocation(0, 0);
+
 Event SDL_Interface::HandleEvents() {
-    //frameStart_ = SDL_GetTicks();
 
     SDL_Event eventSDL;
     SDL_PollEvent(&eventSDL);
@@ -102,9 +101,7 @@ void SDL_Interface::PresentScreen() {
     //speed booster
     uint32_t frameTime = SDL_GetTicks() - frameStart_;
     if (frameDelay_ > frameTime) {
-        if (frameDelay_ > frameTime) {
-            SDL_Delay(frameDelay_ - frameTime);
-        }
+        SDL_Delay(frameDelay_ - frameTime);
     } else {
         frameStart_ = SDL_GetTicks();
         SDL_RenderPresent(renderer);
@@ -114,11 +111,11 @@ void SDL_Interface::PresentScreen() {
 void SDL_Interface::Clean() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    for (auto itr = ImageToGameObject.begin(); itr != ImageToGameObject.end(); ++itr) {
-        delete itr->second;
+    for (auto & game_object : ImageToGameObject) {
+        delete game_object.second;
     }
     SDL_Quit();
-    std::cout << "it's cleaned\n";
+    std::cout << "it's cleaned SDL\n";
 }
 
 void SDL_Interface::LoadImage(Image* img) {

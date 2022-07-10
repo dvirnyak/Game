@@ -5,7 +5,7 @@ Image::Image(string source, Coordinates coordinates,
              Sizes sizes, double angle) : source(source),
                                        coordinates(coordinates),
                                        sizes(sizes), angle(angle) {
-    Game::Interface_->LoadImage(this);
+    Game::interface->LoadImage(this);
 }
 
 Image::Image(Coordinates coordinates, Sizes sizes) :
@@ -13,7 +13,7 @@ coordinates(coordinates), sizes(sizes) {
 }
 
 Image::~Image() {
-    Game::Interface_->DeleteImage(this);
+    Game::interface->DeleteImage(this);
 }
 
 void Image::Update(Coordinates newCoordinates, Sizes newSizes, double newAngle) {
@@ -24,7 +24,7 @@ void Image::Update(Coordinates newCoordinates, Sizes newSizes, double newAngle) 
 
 void Image::Draw() {
     if (fixed_) {
-        Game::Interface_->RenderImage(this);
+        Game::interface->RenderImage(this);
         return;
     }
     //for not copying of the picture by creating a new Image object
@@ -38,7 +38,7 @@ void Image::Draw() {
     Coordinates originalCenter = center;
     center *= zoom_;
 
-    Game::Interface_->RenderImage(this);
+    Game::interface->RenderImage(this);
 
     center = originalCenter;
     coordinates = originalCoordinates;
@@ -65,7 +65,7 @@ void Image::SetZoom(double k) {
 }
 
 void Image::SetColor(int x, int y, int r, int g, int b, int a) {
-    Game::Interface_->PutPixel(coordinates.x + x, coordinates.y + y, r, g, b, a);
+    Game::interface->PutPixel(coordinates.x + x, coordinates.y + y, r, g, b, a);
 }
 
 void Image::FixPosition() {

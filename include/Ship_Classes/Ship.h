@@ -22,14 +22,13 @@ public:
     void Boom();
 
 private:
-    int hp_ = 100;
+    int hp_;
+
     Sails* sails_;
     Cannon* left_cannon_;
     Cannon* right_cannon_;
     /*
      * equipment
-     * gun
-     * hp
      *
      */
 };

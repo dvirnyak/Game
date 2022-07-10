@@ -10,10 +10,10 @@ bool Cannon::Fire() {
     }
     last_call = time(NULL);
 
-    double abs_speed = 200;
-    Vector2D speed = Vector2D(angle_ + 90, abs_speed, true);
-    speed += ship_->GetSpeed();
-    new CannonBall(ship_, coordinates_, speed);
+    double absolute = 10000;
+    Vector2D force = Vector2D(angle_ + 90, absolute, true);
+
+    new CannonBall(ship_, coordinates_, force);
 
     return true;
 }

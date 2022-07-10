@@ -10,9 +10,8 @@ ShipObject::ShipObject(string type, Object* ship, Coordinates offset, double ang
 
 void ShipObject::FollowShip() {
     angle_ = ship_->GetAngle() + angleOffset_;
-    MoveTo(ship_->GetCoordinates() + Vector2D(coordinatesOffset_, ship_->GetAngle()),
+    SetPosition(ship_->GetCoordinates() + Vector2D(coordinatesOffset_, ship_->GetAngle()),
            angle_);
-    //std::cout << GetCoordinates().x << " " << GetCoordinates().y << "\n";
 }
 
 void ShipObject::Update() {

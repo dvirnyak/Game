@@ -5,14 +5,16 @@
 
 class CannonBall : Object {
 public:
-    CannonBall(Object* ship, Coordinates start_point, Vector2D speed);
+    CannonBall(Object* ship, Coordinates start_point, Vector2D force);
     void Update() override;
 private:
-    inline static const double g = 9.8;
+    inline static const double g = double(9.8);
 
-    double height;
+    double weight_ = 1;
+
+    double height = 0;
     double speed_y = 0;
-    Sizes orignal_sizes_;
+    Sizes original_sizes_;
 
     Object* ship_;
 };

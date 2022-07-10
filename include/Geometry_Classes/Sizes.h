@@ -4,7 +4,7 @@
 struct Sizes {
     int height = 0;
     int width = 0;
-    Sizes(int height, int width);
+    Sizes(int width, int height);
     Sizes() = default;
     Sizes& operator *=(double k);
     Sizes operator *(double k);

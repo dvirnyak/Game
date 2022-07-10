@@ -8,22 +8,27 @@ class Game {
 public:
     Game();
     ~Game();
-    void Init(const char* Title, int width, int height, bool fullscreen, int FPS);
+    void Init(const char* title, int width, int height, bool fullscreen, int fps);
     void HandleEvents();
     void Update();
     void Render();
     void Clean();
     bool Running();
 
-    inline static Interface* Interface_;
-    inline static int FPS_;
+    inline static Interface* interface;
+    inline static double dt;
 
 private:
+
     inline static Ship* player_;
     inline static Map* map_;
     inline static Coordinates center_;
     inline static Object* arrow_;
-    bool isRunning_ = false;
+
+    inline static int fps_;
+    bool is_running_ = false;
+
+    void GameObjectsGeneration();
 };
 
 #endif //MYCOOLGAME_GAME_H

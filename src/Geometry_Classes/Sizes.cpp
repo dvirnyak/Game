@@ -1,6 +1,6 @@
 #include <Sizes.h>
 
-Sizes::Sizes(int height, int width) : height(height), width(width) {
+Sizes::Sizes(int width, int height) : height(height), width(width) {
 }
 
 Sizes& Sizes::operator *=(double k) {

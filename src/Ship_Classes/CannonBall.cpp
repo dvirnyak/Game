@@ -1,27 +1,34 @@
 #include <CannonBall.h>
 #include <Game.h>
 
-CannonBall::CannonBall(Object* ship, Coordinates start_point, Vector2D speed) :
-Object("CannonBall", start_point), ship_(ship), height(0) {
-    speed_ = speed;
-    speed_y = 50000;
-    orignal_sizes_ = sizes_;
+CannonBall::CannonBall(Object* ship, Coordinates start_point, Vector2D force) :
+Object("CannonBall", start_point, 0, {0, 0}, 1), ship_(ship), height(2) {
+
+    speed_ = ship_->GetSpeed();
+    PushWithForce(force);
+
+    ship_->PushWithForce(force * -1);
+
+    speed_y = ((force.GetDist() / weight_) * Game::dt) / 10;
+
+    original_sizes_ = sizes_;
 }
 
 void CannonBall::Update() {
-    speed_y -= g * 1000 / Game::FPS_;
-    height += speed_y * 1000 / Game::FPS_;
+
+    speed_y -= g * Game::dt;
+    height += speed_y * Game::dt;
 
     if (height <= 0) {
         kill_me_ = true;
     }
-    Resize(orignal_sizes_ * (1 + height / 100000000));
 
-    double k = 0.0025 / 500 * Game::FPS_;
+    Resize(original_sizes_ * (1 + (height - 7) / 7));
+
+    double k = 0.0025 * Game::dt;
     speed_ -= Vector2D(speed_.GetAngle(), k * pow(speed_.GetAbs(), 1.5), true);
 
-    Resize(sizes_ * 1.01);
-    Move();
+    Drift();
 
     for (auto ship : Ship::ships) {
         if (Object::Collised(ship, this) && ship != ship_) {
