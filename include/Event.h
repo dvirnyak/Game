@@ -1,7 +1,7 @@
 #ifndef MYCOOLGAME_EVENT_H
 #define MYCOOLGAME_EVENT_H
 
-#include <Coordinates.h>
+#include <Geometry.h>
 #include <string>
 
 using std::string;

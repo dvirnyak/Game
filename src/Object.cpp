@@ -1,15 +1,20 @@
 #include "Object.h"
 #include "Game.h"
 
-Object::Object(string type, const Coordinates& coordinates, double angle, Vector2D speed) :
-type_(type), coordinates_(coordinates), angle_(angle), speed_(speed) {
-    string source = dirAssets + typeImageSources_[type];
+Object::Object(string type, const Coordinates& coordinates,
+               double angle, Vector2D speed, double weight) :
+type_(type), coordinates_(coordinates), angle_(angle),
+speed_(speed), weight_(weight), sizes_(TypeDefaultSizes[type_]) {
+
+    string source = dirAssets + TypeImageSources[type];
     image_ = new Image(source, coordinates_, sizes_, angle_);
 
     objects.push_back(this);
-};
+}
 
 Object::~Object() {
+    delete image_;
+
     auto itr = objects.begin();
     while (itr != objects.end() && objects.size() > 0) {
         if ((*itr) == this) {
@@ -19,37 +24,51 @@ Object::~Object() {
             ++itr;
         }
     }
-    delete image_;
+
 }
 
-void Object::Move() {
-    coordinates_ += speed_ * (double(1) / Game::FPS_);
+void Object::Drift() {
+    Coordinates before = coordinates_;
+
+    coordinates_ += speed_ * Game::dt;
+
+    if (!Map::inMap(coordinates_)) {
+        speed_ *= -1;
+        coordinates_ = before;
+    }
+
     image_->Update(coordinates_, sizes_, angle_);
 }
 
-void Object::Move(Vector2D vec, double angle) {
+void Object::PushWithForce(Vector2D force) {
+    speed_ += (force * (double(1) / weight_)) * Game::dt;
+}
+
+void Object::MoveByDirection(Vector2D vec, double angle) {
     coordinates_ += vec;
     angle_ += angle;
     image_->Update(coordinates_, sizes_, angle_);
 }
 
-void Object::MoveTo(Coordinates vec, double angle) {
-    coordinates_ = vec;
+void Object::SetPosition(const Coordinates& point, double angle) {
+    coordinates_ = point;
     angle_ = angle;
     image_->Update(coordinates_, sizes_, angle_);
 }
 
 void Object::Update() {
     Coordinates before = coordinates_;
-    Move();
+    Drift();
+
     if (!Map::inMap(coordinates_)) {
         speed_ *= -1;
         coordinates_ = before;
     }
+
     image_->Update(coordinates_, sizes_, angle_);
 }
 
-Image* Object::GetImage() {
+Image* Object::GetImage() const {
     return image_;
 }
 
@@ -57,17 +76,21 @@ Coordinates Object::GetCoordinates() const {
     return coordinates_;
 };
 
-double Object::GetAngle() {
+double Object::GetAngle() const {
     return angle_;
 };
 
-Vector2D Object::GetSpeed() {
+Vector2D Object::GetSpeed() const {
     return speed_;
 }
 
 void Object::Resize(Sizes new_sizes) {
     sizes_ = new_sizes;
     image_->Update(coordinates_, sizes_, angle_);
+}
+
+void Object::Draw() {
+    image_->Draw();
 }
 
 void Object::Clean() {
@@ -89,7 +112,9 @@ void Object::DeleteKilled() {
     }
 }
 
-void Object::CheckCollisions() {
+// not implemented outdated realisation
+
+/* void Object::CheckCollisions() {
     if (time(NULL) - last_call_collisions < interval_collisions) {
         return;
     }
@@ -105,12 +130,9 @@ void Object::CheckCollisions() {
         }
     }
 }
+*/
 
-Object::operator Coordinates() {
-    return coordinates_;
-}
-
-bool Object::Collised(Object *a, Object *b) {
+bool Object::Collised(Object* a, Object* b) {
     double diff_angle = a->angle_ - b->angle_;
 
     Coordinates coordinates_a = a->coordinates_;
@@ -138,23 +160,29 @@ bool Object::Collised(Object *a, Object *b) {
     return false;
 }
 
-map<string, string> Object::typeImageSources_ = {
-        {"Ship", "ship2.bmp"},
-        {"Sails", "sails.bmp"},
-        {"Island", "island1.bmp"},
-        {"Arrow", "arrow.bmp"},
-        {"Cannon", "cannon.bmp"},
-        {"CannonBall", "Cannon_Ball.bmp"}
+map<string, string> Object::TypeImageSources = {
+        {"Ship", "Ship.bmp"},
+        {"Sails", "Sails.bmp"},
+        {"Island", "Island.bmp"},
+        {"Arrow", "Arrow.bmp"},
+        {"Cannon", "Cannon.bmp"},
+        {"CannonBall", "CannonBall.bmp"}
 };
 
-map<string, Sizes> Object::typeDefaultSizes_ = {
-        {"Ship", Sizes(414, 178) * 0.5},
-        {"Sails", Sizes(58, 249) * 0.6},
+map<string, Sizes> Object::TypeDefaultSizes = {
+        {"Ship", Sizes( 178, 414) * 0.5},
+        {"Sails", Sizes(249, 58) * 0.6},
         {"Island", Sizes(300, 300) * 1.5},
-        {"Arrow", Sizes(25, 70)},
-        {"Cannon", Sizes(50, 30)},
+        {"Arrow", Sizes(70, 25)},
+        {"Cannon", Sizes(30, 50)},
         {"CannonBall", Sizes(20, 20)}
 };
+
+double Object::DiffPercentPerSecond(double percent) {
+    return double(1) + (percent / 100 * Game::dt);
+}
+
+
 
 
 

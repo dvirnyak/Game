@@ -1,8 +1,7 @@
 #ifndef MYCOOLGAME_MAP_H
 #define MYCOOLGAME_MAP_H
 
-#include <Vector2D.h>
-#include <Sizes.h>
+#include <Geometry.h>
 #include <Image.h>
 #include <deque>
 #include <vector>

@@ -10,9 +10,7 @@ using std::string;
 using std::vector;
 using std::map;
 
-#include <Coordinates.h>
-#include <Sizes.h>
-#include <Vector2D.h>
+#include <Geometry.h>
 
 #include <Image.h>
 #include <Object.h>

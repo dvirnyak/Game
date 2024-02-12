@@ -5,7 +5,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
-#include <Vector2D.h>
+#include <Geometry.h>
 
 using std::map;
 using std::vector;
@@ -13,18 +13,24 @@ using std::vector;
 class Object {
 public:
     Object(string type, const Coordinates& coordinates,
-           double angle = 0, Vector2D speed = Vector2D(0,0));
+           double angle = 0, Vector2D speed = Vector2D(0,0), double weight = 0);
+    Object() = delete;
     virtual ~Object();
 
-    void Move();
-    void Move(Vector2D vec, double angle = 0);
-    void MoveTo(Coordinates vec, double angle = 0);
+    void Drift();
+    void PushWithForce(Vector2D force);
+    void MoveByDirection(Vector2D vec, double angle = 0);
+    void SetPosition(const Coordinates& point, double angle = 0);
+
     virtual void Update();
-    Image* GetImage();
+
+    Image* GetImage() const;
     Coordinates GetCoordinates() const;
-    double GetAngle();
-    Vector2D GetSpeed();
+    double GetAngle() const;
+    Vector2D GetSpeed() const;
+
     void Resize(Sizes new_sizes);
+    void Draw();
 
     static void Clean();
     static void DeleteKilled();
@@ -33,11 +39,9 @@ public:
 
     inline static vector<Object*> objects;
 
-    operator Coordinates();
-
 private:
-    Object() = default;
-    string type_;
+
+    string type_; // TODO
 
 
     inline static time_t interval_collisions = 1;
@@ -45,16 +49,20 @@ private:
 
     //all the sources and sizes of types should be in a one place
     inline static string dirAssets = "../assets/";
-    static map<string, string> typeImageSources_;
-    static map<string, Sizes> typeDefaultSizes_;
+    static map<string, string> TypeImageSources;
+    static map<string, Sizes> TypeDefaultSizes;
 
 protected:
+
     Coordinates coordinates_;
-    Sizes sizes_ = typeDefaultSizes_[type_];
+    Sizes sizes_;
     Vector2D speed_;
+    double weight_;
     Image* image_;
     double angle_;
     bool kill_me_ = false;
+
+    static double DiffPercentPerSecond(double percent);
 };
 
 #endif //MYCOOLGAME_OBJECT_H

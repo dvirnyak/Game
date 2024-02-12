@@ -1,12 +1,11 @@
 #include <iostream>
 #include "Map.h"
-#include "Game.h"
 
 Map::Map(Sizes sizes, Coordinates center) {
-    sizes_ = sizes;
-    center_ = center;
+    sizes_ = sizes * 100;
+    center_ = center * 100;
     map_ = deque<deque<Cell*>>(deque<deque<Cell*>>(
-            sizes.width / block_size + 1, deque<Cell*>(sizes.height / block_size + 1)));
+            sizes_.width / block_size + 1, deque<Cell*>(sizes_.height / block_size + 1)));
 
     for (int i = 0; i < sizes_.width / block_size; ++i) {
         for (int j = 0; j < sizes_.height / block_size; ++j) {
@@ -16,7 +15,7 @@ Map::Map(Sizes sizes, Coordinates center) {
 
     for (int i = 0; i < sizes_.width / block_size; ++i) {
         for (int j = 0; j < sizes_.height / block_size; ++j) {
-            map_[i][j]->pressure = (rand() + i * 1234) % 100;
+            map_[i][j]->pressure = (rand() + i * 1234) % 1000;
         }
     }
 
@@ -50,7 +49,7 @@ void Map::Update() {
             map_[i][j]->pressure = map_[i-1][j]->pressure + map_[i+1][j]->pressure +
                     map_[i][j-1]->pressure + map_[i][j+1]->pressure;
             map_[i][j]->pressure *= 0.2;
-            map_[i][j]->pressure += rand() % 1;
+            map_[i][j]->pressure += rand() % 5000;
         }
     }
 
@@ -63,9 +62,6 @@ void Map::Update() {
             wind += Vector2D(Coordinates(-1, 0) * (map_[i-1][j]->pressure - map_[i][j]->pressure));
             wind += Vector2D(Coordinates(0, 1) * (map_[i][j+1]->pressure - map_[i][j]->pressure));
             wind += Vector2D(Coordinates(0, -1) * (map_[i][j-1]->pressure - map_[i][j]->pressure));
-            if (wind.GetAbs() < 1000) {
-                wind += Vector2D(wind.GetAngle(), 1000, bool());
-            };
 
             map_[i][j]->wind = wind;
         }
